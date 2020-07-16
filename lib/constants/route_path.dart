@@ -1,0 +1,33 @@
+const String LoginRoute = 'Login';
+const String RegisterRoute = 'register';
+const String PasswordRoute = 'password_reset';
+const String HomeRoute = '/';
+const String ProductsRoute = 'products';
+const String ProductRoute = 'product';
+const String SearchRoute = 'search';
+const String PhotoGallery = 'gallery';
+const String PaymentProceed = 'payment';
+//const String SearchScreen = 'search';
+const String ViewAllCats = 'viewAllCats';
+const String ViewAllProductsBySubCatRoute = 'ViewAllProductsBySubCatRoute';
+const String SettingsRoute = 'Settings';
+const String ChooseSettingsRoute = 'choose_settings';
+const String AddressBookRoute = 'AddressBookRoute';
+const String AddAddressBookRoute = 'AddAddressBookRoute';
+const String AddBoradRoute = 'AddBoradRoute';
+const String BoradRoute = 'BoradRoute';
+const String PaymentChooseRoute = 'PaymentChooseRoute';
+const String AddressChooseRoute = 'AddressChooseRoute';
+const String AddAddressesRoute= 'AddAddressesRoute';
+const String CreditCardChooseRoute = 'CreditCardChooseRoute';
+const String AddCreditCardRoute = 'AddCreditCardRoute';
+const String PaypalPaymentRoute = 'PaypalPayment';
+const String CongratsRoute = 'CongratsRoute';
+const String BlogRoute = 'BlogRoute';
+const String PostDetailsRoute = 'PostDetailsRoute';
+const String MyOrdersRoute = 'MyOrdersRoute';
+const String OrderRoute = 'OrderRoute';
+const String WriteReviewRoute = 'WriteReviewRoute';
+
+//const String ChooseAdd = 'AddCreditCardRoute';
+

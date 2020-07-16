@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ecommerce UniyApps</string>
+    <string name="twitter_consumer_key" translatable="false">[YOUR_CONSUMER_KEY]</string>
+    <string name="twitter_consumer_secret" translatable="false">fb[YOUR_CONSUMER_SECRET]</string>
+    <string name="facebook_app_id">656362998455405</string>
+    <string name="fb_login_protocol_scheme">fb656362998455405</string>
+
+</resources>

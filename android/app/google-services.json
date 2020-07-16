@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "201830029730",
+    "firebase_url": "https://ecommerceapp-55bac.firebaseio.com",
+    "project_id": "ecommerceapp-55bac",
+    "storage_bucket": "ecommerceapp-55bac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201830029730:android:4167d37e357cf63805fafb",
+        "android_client_info": {
+          "package_name": "com.uniyapps.ecommerceApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201830029730-ac6rkl3lu3g64gjrpf59qeheamt9c7qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWx3tjujwoCrc7mrD7SGeeFhg8qOU4Px0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201830029730-ac6rkl3lu3g64gjrpf59qeheamt9c7qe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
