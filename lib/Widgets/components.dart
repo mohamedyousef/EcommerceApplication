@@ -153,12 +153,21 @@ Widget photoUrlWithoutBorder(String photourl,{BoxFit boxFit = BoxFit.contain,dou
     height: height,
     fit: boxFit,
   ):
-  Container(color:Colors.transparent,);
+  Material(
+    child: Image.asset(
+      'assets/images/nf.png',
+      width: width,
+      height: height,
+      fit: BoxFit.cover,
+    ),
+
+    clipBehavior: Clip.hardEdge,
+  );
 }
 
 Widget photoAssets(String photourl,{bool shape =false,double height=130.0,double width=200}){
   return  Material(
-    shape:(shape)?CircleBorder():RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(8.0)),),
+    shape:(shape)?CircleBorder():RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(6.0)),),
     child: Image.asset(
       photourl,
       width: width,

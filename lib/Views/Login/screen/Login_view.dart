@@ -200,7 +200,7 @@ class LoginView extends StatelessWidget {
           )),
           if(model.isBusy)
           Positioned.fill(child: AnimatedOpacity(opacity: 0.7,duration: Duration(milliseconds: 500),
-          child: Container(color:ColorsStyles.coffe_color_Grey))),
+          child: Container(color:ColorsStyles.whitegrey))),
           if(model.isBusy)
           Center(
             child: CircularProgressIndicator(),

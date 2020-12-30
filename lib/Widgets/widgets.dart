@@ -310,7 +310,7 @@ class Widgets {
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                      child: photoUrlWithoutBorder(product.images[0].src,
+                      child: photoUrlWithoutBorder((product.images.isNotEmpty)?product.images[0].src:"",
                           boxFit: BoxFit.cover)),
                   if (product.onSale && product.variations.isEmpty)
                     Align(

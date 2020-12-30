@@ -28,6 +28,7 @@ const String PostDetailsRoute = 'PostDetailsRoute';
 const String MyOrdersRoute = 'MyOrdersRoute';
 const String OrderRoute = 'OrderRoute';
 const String WriteReviewRoute = 'WriteReviewRoute';
+const String HelpAndContactRoute = 'HelpAndContactRoute';
 
 //const String ChooseAdd = 'AddCreditCardRoute';
 

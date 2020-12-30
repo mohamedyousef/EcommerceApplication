@@ -233,8 +233,9 @@ class OrderScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Shipment Details ",
-                        style: AppTheme.titleStyle
-                            .copyWith(color: LightColor.green_light_dp,fontWeight: FontWeight.bold),
+                        style: AppTheme.titleStyle.copyWith(
+                            color: LightColor.green_light_dp,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     SizedBox(
@@ -260,8 +261,15 @@ class OrderScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                (_order.status==OrderStatus.processing||_order.status==OrderStatus.pending)
-                                ?"InProcessing":(_order.status==OrderStatus.on_hold)?"Shipped":(_order.status==OrderStatus.completed)?"Delivered":"",
+                                (_order.status == OrderStatus.on_hold ||
+                                        _order.status == OrderStatus.pending)
+                                    ? "Pending"
+                                    : (_order.status == OrderStatus.processing)
+                                        ? "InProcessing"
+                                        : (_order.status ==
+                                                OrderStatus.completed)
+                                            ? "Completed"
+                                            : "",
                                 style: AppTheme.h5Style
                                     .copyWith(fontWeight: FontWeight.w500),
                               ),
@@ -276,7 +284,13 @@ class OrderScreen extends StatelessWidget {
                                     child: (_order.status ==
                                                 OrderStatus.pending ||
                                             _order.status ==
-                                                OrderStatus.processing)
+                                                OrderStatus.on_hold ||
+                                            _order.status ==
+                                                OrderStatus.on_hold ||
+                                            _order.status ==
+                                                OrderStatus.processing ||
+                                            _order.status ==
+                                                OrderStatus.completed)
                                         ? Icon(Icons.check, color: Colors.white)
                                         : CircleAvatar(
                                             backgroundColor: Colors.white,
@@ -292,9 +306,9 @@ class OrderScreen extends StatelessWidget {
                                   CircleAvatar(
                                     radius: 12,
                                     child: (_order.status ==
-                                                OrderStatus.on_hold ||
+                                                OrderStatus.processing ||
                                             _order.status ==
-                                                OrderStatus.processing)
+                                                OrderStatus.completed)
                                         ? Icon(Icons.check, color: Colors.white)
                                         : CircleAvatar(
                                             backgroundColor: Colors.white,
@@ -328,17 +342,17 @@ class OrderScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
+                                    "Pending",
+                                    style: AppTheme.subTitleStyle
+                                        .copyWith(color: Colors.black87),
+                                  ),
+                                  Text(
                                     "InProcessing",
                                     style: AppTheme.subTitleStyle
                                         .copyWith(color: Colors.black87),
                                   ),
                                   Text(
-                                    "Shipped",
-                                    style: AppTheme.subTitleStyle
-                                        .copyWith(color: Colors.black87),
-                                  ),
-                                  Text(
-                                    "Delivered",
+                                    "Completed",
                                     style: AppTheme.subTitleStyle
                                         .copyWith(color: Colors.black87),
                                   )
@@ -350,7 +364,6 @@ class OrderScreen extends StatelessWidget {
                               Divider(
                                 thickness: 2,
                               ),
-
                               for (var item in _order.lineItems)
                                 FutureBuilder(
                                   builder: (BuildContext context,
@@ -363,8 +376,11 @@ class OrderScreen extends StatelessWidget {
                                       case ConnectionState.active:
                                       case ConnectionState.done:
                                         return InkWell(
-                                          onTap: (){
-                                            Navigator.pushNamed(context,ProductRoute,arguments:snapshot.data.product);
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, ProductRoute,
+                                                arguments:
+                                                    snapshot.data.product);
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -373,7 +389,8 @@ class OrderScreen extends StatelessWidget {
                                               //   crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
-                                                  margin: EdgeInsets.only(top: 10),
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
                                                   color: Colors.grey.shade50,
                                                   child: photoUrlWithoutBorder(
                                                       snapshot.data.getImage(),
@@ -386,21 +403,22 @@ class OrderScreen extends StatelessWidget {
                                                 Expanded(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: <Widget>[
-
                                                       Text(
-                                                        snapshot
-                                                            .data.product.name,
-                                                        style: GoogleFonts.roboto().copyWith(
-                                                          fontSize: 16
-                                                        )
-                                                      ),
+                                                          snapshot.data.product
+                                                              .name,
+                                                          style: GoogleFonts
+                                                                  .roboto()
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      16)),
                                                       SizedBox(
                                                         height: 5,
                                                       ),
-                                                      if (snapshot
-                                                              .data.variation.id >
+                                                      if (snapshot.data
+                                                              .variation.id >
                                                           0)
                                                         Text(
                                                             "${snapshot.data.product.attributes.map((e) => e.name)}"),
@@ -409,31 +427,43 @@ class OrderScreen extends StatelessWidget {
                                                       ),
                                                       Row(
                                                         children: <Widget>[
-                                                          Text("Qty: ",style: TextStyle(
-                                                            fontWeight: FontWeight.bold,
-                                                            color:Colors.black,
-                                                            fontSize: 13
-                                                          ),),
-                                                          Text(" ${snapshot.data.quantity}",style:
-                                                          TextStyle(
-                                                              fontWeight: FontWeight.w500,
-                                                              fontSize: 14,
-                                                              color:Colors.black
-                                                          ),),
+                                                          Text(
+                                                            "Qty: ",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 13),
+                                                          ),
+                                                          Text(
+                                                            " ${snapshot.data.quantity}",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
                                                         ],
                                                       ),
                                                       SizedBox(
                                                         height: 6,
                                                       ),
-                                                      Text("${snapshot.data.getTotalPrice()} ${_order.currency}",style:
-                                                        AppTheme.titleStyle.copyWith(
-                                                          fontWeight: FontWeight.bold
-                                                        ),)
-
+                                                      Text(
+                                                        "${snapshot.data.getTotalPrice()} ${_order.currency}",
+                                                        style: AppTheme
+                                                            .titleStyle
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
-
                                               ],
                                             ),
                                           ),

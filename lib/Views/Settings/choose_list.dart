@@ -13,14 +13,27 @@ class ChooseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ChooseListViewModel>.reactive(
-        onModelReady: (model)=>model.loadCurrencies(),
+        onModelReady: (model) {
+          model.pageIndex = page;
+          page == 1 ? model.loadCurrencies() : model.loadLanguages();
+        }
+    ,
         builder: (context,model,child){
       return Scaffold(
         backgroundColor: Colors.white,
-        
+        appBar: (page==1)?null:AppBar(
+          elevation: 0,
+          leading:    IconButton(
+            onPressed: (){
+              model.navigationService.goBack();
+            },
+            icon: Icon(Icons.chevron_left,color: Colors.black,size: 32,),
+          ),
+        ),
         body: SafeArea(
           child: Column(
             children: <Widget>[
+              if(page==1)
               Row(
                 children: <Widget>[
                   IconButton(
@@ -85,9 +98,9 @@ class ChooseList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Recent currency",style: AppTheme.h3Style.copyWith(fontWeight: FontWeight.w800),),
+                    Text("Recent ${page==1?"currency":"language"}",style: AppTheme.h3Style.copyWith(fontWeight: FontWeight.w800),),
                    Container(
-                      child: Text("${model.currency}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+                      child: Text("${model.selected}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
                       decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(20)),
                       padding: EdgeInsets.symmetric(horizontal: 18,vertical: 5),
                     ),
@@ -96,19 +109,37 @@ class ChooseList extends StatelessWidget {
               ),
 
               SizedBox(height: 10,),
-              (model.currencies!=null)? Expanded(
+              ((page==1)?model.currencies!=null:model.langauges!=null)? Expanded(
                 child: ListView.separated(itemBuilder: (context,index){
                   return ListTile(
-                    trailing: (model.currency==model.currencies[index].currency)?Icon(Icons.check):null,
-                    subtitle:Text(model.currencies[index].country,),
-                    title: Text(model.currencies[index].currency,style:TextStyle(fontWeight: FontWeight.bold)),
+                    trailing: (model.selected==
+                        ((page==1)?model.currencies[index].currency:model.langauges.keys.toList()[index]))?Icon(Icons.check):null,
+                    subtitle:Text(
+                      (page==1)?
+                      model.currencies[index].country:
+                      model.langauges.values.toList()[index].languageCode
+                      ,),
+                    title: Text(
+                        (page==1)?
+                        model.currencies[index].currency:
+                            model.langauges.keys.toList()[index]
+                        ,style:TextStyle(fontWeight: FontWeight.bold)),
                     onTap: (){
-                      model.currency = model.currencies[index].currency;
-                      model.settingsServices.changeCurrency(model.currencies[index].currency);
+                      if(page==1) {
+                        model.selected = model.currencies[index].currency;
+                        model.settingsServices.changeCurrency(
+                            model.currencies[index].currency);
+                      }
+                      else{
+                        String key = model.langauges.keys.toList()[index];
+                        model.selected = key;
+                        model.settingsServices.changeLanguage(key);
+                      }
                     },
+
                   );
                 }
-                ,itemCount:model.currencies.length,
+                ,itemCount:(model.pageIndex==1)?model.currencies.length:model.langauges.length,
                   separatorBuilder: (BuildContext context, int index)=>Divider(),),
               ):Container()
             ],

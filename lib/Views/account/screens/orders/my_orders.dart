@@ -66,15 +66,21 @@ class MyOrdersScreen extends StatelessWidget {
                                 Expanded(
                                   child: TabbarButtonWishList("Current", () {
                                     model.pageIndex = 0;
-                                    pageContaroller.animateToPage(model.pageIndex, duration: Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut);
+                                    pageContaroller.animateToPage(
+                                        model.pageIndex,
+                                        duration: Duration(milliseconds: 200),
+                                         curve: Curves.easeIn
+                                    );
                                   }, model.pageIndex == 0),
                                 ),
                                 Expanded(
                                   child: TabbarButtonWishList("Past", () {
                                     model.pageIndex = 1;
-                                    pageContaroller.animateToPage(model.pageIndex, duration: Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut);
+                                    pageContaroller.animateToPage(
+                                        model.pageIndex,
+                                        duration: Duration(milliseconds: 200),
+                                        curve: Curves.easeIn
+                                    );
                                   }, model.pageIndex == 1),
                                 ),
                               ],

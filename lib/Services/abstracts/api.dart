@@ -19,8 +19,7 @@ abstract class Api {
   Future<List<Product>> getProducts(
       {int limit = 20, int page = 1, String filter});
   Future<List<Product>> search(String search,
-      {int limit = 15, int page = 1});
-
+      {int limit = 15, int page = 1,String filter});
   Future<List<Category>> getCategories();
   Future<dynamic> requestOrder(Order order);
   Future<Variation> getVariation(int productID, int id);

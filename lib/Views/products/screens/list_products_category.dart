@@ -162,15 +162,15 @@ class _ListProductsByCategoryState extends State<ListProductsByCategory> with Si
                     height: (state) ? ScreenUtils.screenHeight(context,size: 0.80) : 0,
                     child: FilterWidget((){
                       model.applyFilter(
-                          filter:"category= "+widget.category.id
-                              .toString()
+                          filter:
+                          "category= "+ widget.category.id.toString()
                               +"&"+
-                              //      "${(provider.onSale)?"on_sale = ${provider.onSale}":""}& ${(provider.featured)?"featured = ${provider.featured}":""}"+
-                              "${(provider.startPrice==0&&provider.endPrice==100000)?"":
-                              "& min_price=${provider.startPrice} & max_price=${provider.endPrice}"}"
-                        //  ,total_sales: provider.popular,
-                        //  ratings: provider.averageRating
-
+                              "${(provider.selectedSort==2)?"on_sale = true":(provider.selectedSort==3)?"featured = true":""}"+
+                              "${(provider.startPrice==0&&provider.endPrice==100000)?"": "& min_price=${provider.startPrice} & max_price=${provider.endPrice}"} & "
+                                  "${
+                                  (provider.id>-1) ? "attribute=pa_${provider.attributeItems.singleWhere((element) => element.id == provider.id).name.toLowerCase()}&attribute_term=${provider.getAttributesIds()}"
+                                      :""
+                              }"
                       );
                       handleAnimationIcon();
                     }),
@@ -208,10 +208,17 @@ class _ListProductsByCategoryState extends State<ListProductsByCategory> with Si
     }
 
     prodcut.waitForNextRequest = true;
-    await prodcut.requestLoadMore(filter:"category= "+ widget.category.id.toString()  +"&"+
-       "${(provider.selectedSort==2)?"on_sale = true":(provider.selectedSort==3)?"featured = true":""}"+
-        "${(provider.startPrice==0&&provider.endPrice==100000)?"":
-       "& min_price=${provider.startPrice} & max_price=${provider.endPrice}"}"
+    await prodcut.requestLoadMore(
+
+        filter:
+        "category= "+ widget.category.id.toString()
+            +"&"+
+            "${(provider.selectedSort==2)?"on_sale = true":(provider.selectedSort==3)?"featured = true":""}"+
+            "${(provider.startPrice==0&&provider.endPrice==100000)?"": "& min_price=${provider.startPrice} & max_price=${provider.endPrice}"} & "
+                "${
+                (provider.id>-1) ? "attribute=pa_${provider.attributeItems.singleWhere((element) => element.id == provider.id).name.toLowerCase()}&attribute_term=${provider.getAttributesIds()}"
+                    :""
+            }"
     );
     prodcut.waitForNextRequest = false;
   }

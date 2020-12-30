@@ -115,7 +115,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                               height: 5,
                                             ),
                                             Text(
-                                              (model.settingsServices.userSettings!=null?
+                                              ((model.settingsServices.userSettings!=null)?
                                               model.settingsServices.userSettings.currency=="USD":"")? "\$":"" +
                                                   ((widget.product.variations
                                                           .isEmpty)

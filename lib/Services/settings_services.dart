@@ -16,6 +16,8 @@ class SettingsServices {
   final key = locator<NavigationService>().navigatorKey;
 
   List<Currency>currencies;
+  Map<String,Locale>langauges;
+
 
   Settings settings;
   UserSettings userSettings;
@@ -67,7 +69,14 @@ class SettingsServices {
       currencies = currencyFromJson(await DefaultAssetBundle.of(key.currentContext)
           .loadString("assets/curr.json"));
 
+  }
 
+  loadLanguages(){
+    if(langauges==null) {
+      langauges = Map<String,Locale>();
+      langauges["English"]=Locale("en","us");
+      langauges["عربي"]=Locale("ar","EG");
+    }
   }
 
 }

@@ -15,7 +15,7 @@ class SearchViewModel extends BaseViewModel{
   Product _firstProduct ;
   Product get firstProduct => _firstProduct;
   bool  _searchFinished =false;
-//  String _searchPattern;
+  //  String _searchPattern;
 
 //
 //  String get searchPattern => _searchPattern;
@@ -36,6 +36,29 @@ class SearchViewModel extends BaseViewModel{
     _firstProduct = value;
     notifyListeners();
   }
+
+  Future<void> applyFilter(
+      {String filter})async{
+
+    per_page= 25;
+    page= 1;
+
+    if (waitForNextRequest) {
+      return;
+    }
+    waitForNextRequest = true;
+
+    _products.clear();
+    List<Product>newPosts = await api.getProducts(limit: per_page,page: page,filter: filter);
+    if(newPosts.length==0)
+      _hasMorePosts = false;
+    page = page+1;
+    _products.addAll(newPosts);
+    print(newPosts.toString());
+    waitForNextRequest = false;
+    notifyListeners();
+  }
+
 
   void searchProductByName(String productName)async{
     _products  = await api.search(productName.trim(),limit: per_page);
@@ -67,9 +90,9 @@ class SearchViewModel extends BaseViewModel{
   } //  final StreamController<List<Product>> _postsController = StreamController<List<Product>>.broadcast();
 
 
-  Future<void> fetchMore(String _searchPattern)async{
+  Future<void> fetchMore(String _searchPattern,{String filter})async{
     if(!_hasMorePosts) return;
-    List<Product>newPosts = await api.search(_searchPattern,limit: per_page,page: page);
+    List<Product>newPosts = await api.search(_searchPattern,limit: per_page,page: page,filter: filter);
     if(newPosts.length==0)
       _hasMorePosts = false;
     page = page+1;

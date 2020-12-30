@@ -8,6 +8,8 @@ import 'package:ecommerceApp/Services/category_services.dart';
 import 'package:ecommerceApp/Services/dialog_service.dart';
 import 'package:ecommerceApp/Services/settings_services.dart';
 import 'package:ecommerceApp/Services/shipping/shipping_service.dart';
+import 'package:ecommerceApp/Views/Home/model/view_model.dart';
+import 'package:ecommerceApp/Views/Home/view/home_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ecommerceApp/Services/geo_services.dart';
 

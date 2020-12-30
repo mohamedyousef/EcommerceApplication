@@ -50,9 +50,9 @@ class WooCommerceDataSource implements Api {
 
   @override
   Future<List<Product>> search(String search,
-      {int limit = 15, int page = 1}) async {
+      {int limit = 15, int page = 1,String filter}) async {
     List<dynamic> response = await _wooCommerceAPI
-        .getAsync("products?search=${search}&page=${page}&per_page=${limit}",forceUpdate: true);
+        .getAsync("products?search=${search}&page=${page}&per_page=${limit}&${filter}",forceUpdate: true);
     return List.generate(
         response.length, (index) => Product.fromJson(response[index]));
   }

@@ -14,7 +14,6 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_ringtone_player/ios_sounds.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ecommerceApp/Models/notification/NotificationModel.dart';
 
 class NotificationHandler extends StatefulWidget {
   @override

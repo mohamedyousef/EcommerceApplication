@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:async/async.dart';
 import 'package:ecommerceApp/DataBase/database_operations.dart';
+import 'package:ecommerceApp/Localization/applocalization.dart';
 import 'package:ecommerceApp/Models/product.dart';
 import 'package:ecommerceApp/Models/user.dart';
 import 'package:ecommerceApp/Services/AuthenticationServices.dart';
@@ -27,7 +28,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_wordpress/flutter_wordpress.dart' as wp;
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
-import 'profile_screen.dart';
+import 'profile_view.dart';
 import 'package:ecommerceApp/Views/wishlist/screens/wishlist_main_view.dart';
 import 'package:ecommerceApp/Views/products/widget/list_horizontal_products.dart';
 
@@ -50,6 +51,7 @@ class HomeView extends StatelessWidget {
                     key: _scaffoldKey,
                     backgroundColor: LightColor.background,
                     bottomNavigationBar: CustomBottomNavigationBar(
+                      index: model.index,
                       onIconPresedCallback: (value) {
                         model.index = value;
                       },
@@ -58,7 +60,7 @@ class HomeView extends StatelessWidget {
                       brightness: Brightness.light,
                       elevation:  0,
                       backgroundColor: Colors.white,
-                      title: Text("Profile",style: TextStyle(
+                      title: Text(AppLocalizations.of(context).translate("profile"),style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold)),
                       leading: IconButton(
@@ -89,7 +91,7 @@ class HomeView extends StatelessWidget {
                           width: 8,
                         ),
                       ],
-                      title: Text(title(model.index),
+                      title: Text(title(model.index,context),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
@@ -125,13 +127,13 @@ class HomeView extends StatelessWidget {
 
 
 
-  String title(int index) {
+  String title(int index,BuildContext context) {
     if (index == 0)
-      return "Home";
+      return AppLocalizations.of(context).translate("home");
     else if (index == 2)
-      return "WISHLIST";
+      return AppLocalizations.of(context).translate("wishlist");
     else
-      return "Explore";
+      return AppLocalizations.of(context).translate("explore");
   }
 
   Widget drawer(User user, bool isLoggedIN) { 

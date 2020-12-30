@@ -1,3 +1,4 @@
+import 'package:ecommerceApp/Localization/applocalization.dart';
 import 'package:ecommerceApp/themes/light_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import 'bottom_curved_Painter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final Function(int) onIconPresedCallback;
-  CustomBottomNavigationBar({Key key, this.onIconPresedCallback})
+  int index;
+  CustomBottomNavigationBar({Key key,this.index, this.onIconPresedCallback})
       : super(key: key);
 
   @override
@@ -17,10 +19,11 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     with TickerProviderStateMixin {
-  int _selectedIndex = 0;
 
   AnimationController _xController;
   AnimationController _yController;
+  int _selectedIndex;
+
   @override
   void initState() {
     _xController = AnimationController(
@@ -28,6 +31,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     _yController = AnimationController(
         vsync: this, animationBehavior: AnimationBehavior.preserve);
 
+    _selectedIndex = widget.index;
     Listenable.merge([_xController, _yController]).addListener(() {
       setState(() {});
     });
@@ -38,7 +42,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   @override
   void didChangeDependencies() {
     _xController.value =
-        _indexToPosition(_selectedIndex) / MediaQuery.of(context).size.width;
+        _indexToPosition(widget.index) / MediaQuery.of(context).size.width;
     _yController.value = 1.0;
 
     super.didChangeDependencies();
@@ -145,34 +149,42 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
     final height = 70.0;
-    return Container(
-      width: appSize.width,
-      height: 70,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            bottom: 0,
-            width: appSize.width,
-            height: height - 10,
-            child: _buildBackground(),
-          ),
-          Positioned(
-            left: (appSize.width - _getButtonContainerWidth()) / 2,
-            top: 0,
-            width: _getButtonContainerWidth(),
-            height: height,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                _icon(Icons.home, _selectedIndex == 0, 0),
-                _icon(Icons.visibility, _selectedIndex == 1, 1),
-                _icon(MdiIcons.heart, _selectedIndex == 2, 2),
-                _icon(CupertinoIcons.profile_circled, _selectedIndex == 3, 3),
-              ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+        width: appSize.width,
+        height: 70,
+        child: Stack(
+          children: [
+            Positioned(
+              left: 0,
+              bottom: 0,
+              width: appSize.width,
+              height: height - 10,
+              child: _buildBackground(),
             ),
-          ),
-        ],
+            Positioned(
+              left:
+              //(AppLocalizations.of(context).locale.languageCode=="arr")?
+             (appSize.width - _getButtonContainerWidth()) / 2,
+//            right:(AppLocalizations.of(context).locale.languageCode=="arr")?
+//            (appSize.width - _getButtonContainerWidth()) / 2:null,
+
+              top: 0,
+              width: _getButtonContainerWidth(),
+              height: height,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  _icon(Icons.home, _selectedIndex == 0, 0),
+                  _icon(Icons.visibility, _selectedIndex == 1, 1),
+                  _icon(MdiIcons.heart, _selectedIndex == 2, 2),
+                  _icon(CupertinoIcons.profile_circled, _selectedIndex == 3, 3),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

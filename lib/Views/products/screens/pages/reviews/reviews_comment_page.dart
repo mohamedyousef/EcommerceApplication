@@ -130,7 +130,8 @@ class ReviewsAndCommentPage extends StatelessWidget {
                         children: <Widget>[
                           RowComment(
                             item,
-                            _authenticationService.userData.email,
+                            (_authenticationService.userData!=null&&_authenticationService.userData.email!=null)?
+                            _authenticationService.userData.email:"",
                             onPressed: (){
                               model.deleteReview(item);
                             },
